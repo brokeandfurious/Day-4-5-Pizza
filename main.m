@@ -59,7 +59,7 @@ int main(int argc, const char * argv[])
         
         NSArray <NSString *>*commandWords = [inputString componentsSeparatedByString:@" "];
         
-        if ([commandWords.firstObject.lowercaseString isEqualToString:@"popperoni"]) {
+        if ([commandWords.firstObject.lowercaseString isEqualToString:@"pepperoni"]) {
             Pizza *largePepperoni = [Kitchen largePepperoni];
             continue;
         }
