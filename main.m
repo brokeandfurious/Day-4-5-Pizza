@@ -15,39 +15,42 @@
 int main(int argc, const char * argv[])
 {
     
-    NSLog(@"Please pick your pizza size and toppings:");
+    BOOL kitchenOn = NO;
     
     Kitchen* kitchen = [Kitchen new];
     Manager* notSoCoolManager;
     CoolManager* coolManager;
     
-    while (YES) {
+    NSLog(@"1 - Not So Cool Manager\n2 - Cool Manager\n3 - No Managers");
+    char managerChoice[100];
+    fgets(managerChoice, 100, stdin);
+    
+    NSString* managerChoiceInput = [[[NSString alloc] initWithUTF8String:managerChoice]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if ([managerChoiceInput isEqualToString:@"notcool"]) {
         
-        NSLog(@"1 - Not So Cool Manager\n2 - Cool Manager\n3 - No Managers");
-        char managerChoice[100];
-        fgets(managerChoice, 100, stdin);
-        
-        NSString* managerChoiceInput = [[NSString alloc] initWithUTF8String:managerChoice];
-        
-        if ([managerChoiceInput isEqualToString:@"cool"]) {
-            
-            if (notSoCoolManager == nil) {
-                notSoCoolManager = [Manager new];
-            }
-            kitchen.kitchenDelegate = notSoCoolManager;
-            
-        } else if ([managerChoiceInput isEqualToString:@"notcool"]) {
-            
-            if (coolManager == nil){
-                coolManager = [CoolManager new];
-            }
-            kitchen.kitchenDelegate = coolManager;
-            
-        } else {
-            kitchen.kitchenDelegate = nil;
-            
+        if (notSoCoolManager == nil) {
+            notSoCoolManager = [Manager new];
         }
+        kitchen.kitchenDelegate = notSoCoolManager;
+        kitchenOn = YES;
         
+    } else if ([managerChoiceInput isEqualToString:@"cool"]) {
+        
+        if (coolManager == nil){
+            coolManager = [CoolManager new];
+        }
+        kitchen.kitchenDelegate = coolManager;
+        kitchenOn = YES;
+        
+    } else {
+        
+        kitchen.kitchenDelegate = nil;
+    }
+    
+    while ((kitchenOn = YES)) {
+        
+        NSLog(@"Please pick your pizza size and toppings:");
         NSLog(@"> ");
         char str[100];
         fgets (str, 100, stdin);
@@ -79,4 +82,3 @@ int main(int argc, const char * argv[])
     
     return 0;
 }
-
